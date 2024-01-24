@@ -1,18 +1,8 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from "uuid";
-import InputArea from "./InputArea";
+import React from "react";
+
 import Todo from "./Todo";
 
-const TodoList = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: uuidv4(),
-      title: "밥",
-      content: "짜파게티",
-      isDone: false,
-    },
-  ]);
-
+const TodoList = ({ setTodos, todos }) => {
   const handleDeleteTodo = (id) => {
     setTodos((prev) => prev.filter((todo) => todo.id !== id));
   };
@@ -29,7 +19,6 @@ const TodoList = () => {
   const doneTodo = todos.filter((todo) => todo.isDone === true);
   return (
     <>
-      <InputArea setTodos={setTodos} />
       <Todo
         handleDeleteTodo={handleDeleteTodo}
         handleChangeTodoState={handleChangeTodoState}
