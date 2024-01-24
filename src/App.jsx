@@ -1,12 +1,14 @@
 import "./App.css";
+import Footer from "./components/Footer";
 import TodoHeader from "./components/TodoHeader";
-import TodoContainer from "./components/TodoContainer";
+import TodoList from "./components/TodoList";
 import "./style/todo.module.css";
 function App() {
   return (
     <>
       <TodoHeader />
-      <TodoContainer />
+      <TodoList />
+      <Footer />
     </>
   );
 }

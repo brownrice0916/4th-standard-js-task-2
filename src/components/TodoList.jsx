@@ -1,41 +1,47 @@
-import React from "react";
+import React, { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import InputArea from "./InputArea";
+import Todo from "./Todo";
 
-const TodoList = ({
-  todos,
-  handleDeleteTodo,
-  handleChangeTodoState,
-  title,
-}) => {
+const TodoList = () => {
+  const [todos, setTodos] = useState([
+    {
+      id: uuidv4(),
+      title: "밥",
+      content: "짜파게티",
+      isDone: false,
+    },
+  ]);
+
+  const handleDeleteTodo = (id) => {
+    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+  };
+
+  const handleChangeTodoState = (id) => {
+    setTodos((prev) =>
+      prev.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
+  const workingTodo = todos.filter((todo) => todo.isDone === false);
+  const doneTodo = todos.filter((todo) => todo.isDone === true);
   return (
     <>
-      <div>
-        <h1>{title}</h1>
-      </div>
-      <div>
-        {todos.map((todo, index) => (
-          <div
-            style={{ border: "1px solid black", padding: "10px" }}
-            key={todo.id}
-          >
-            <div style={{ fontWeight: "900" }}>{todo.title}</div>
-            <div>{todo.content}</div>
-            <button
-              onClick={() => {
-                handleDeleteTodo(todo.id);
-              }}
-            >
-              삭제
-            </button>
-            <button
-              onClick={() => {
-                handleChangeTodoState(todo.id);
-              }}
-            >
-              {todo.isDone ? "취소" : "완료"}
-            </button>
-          </div>
-        ))}
-      </div>
+      <InputArea setTodos={setTodos} />
+      <Todo
+        handleDeleteTodo={handleDeleteTodo}
+        handleChangeTodoState={handleChangeTodoState}
+        todos={workingTodo}
+        title={"Working"}
+      />
+      <Todo
+        handleDeleteTodo={handleDeleteTodo}
+        handleChangeTodoState={handleChangeTodoState}
+        todos={doneTodo}
+        title={"Done"}
+      />
     </>
   );
 };

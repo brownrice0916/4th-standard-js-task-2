@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { v4 as uuidv4 } from "uuid";
 
-const TodoInput = ({ setTodos }) => {
+const InputArea = ({ setTodos }) => {
   const inputRef = useRef("");
 
   useEffect(() => {
@@ -42,4 +42,4 @@ const TodoInput = ({ setTodos }) => {
   );
 };
 
-export default TodoInput;
+export default InputArea;
